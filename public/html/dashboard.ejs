@@ -14,7 +14,6 @@
             <div id="errorDiv" class="hidden flex flex-col mt-2 text-xs text-red-700 font-bold px-[5px] bg-[#2b4d6d] rounded">
                 <a id="errorMessage"></a>
             </div>
-            </body>
             <form 
             method="post"
             action="/player/growid/login/validate"
@@ -39,43 +38,36 @@
                         </button>
                     </div>
                 </div>
+                <div id="warn" class="text-red-500 text-xs mt-2"></div> <!-- Menambahkan peringatan jika ada -->
                 <div class="flex justify-end items-center">
-                    <button id="loginButton" class="px-2 py-1 rounded bg-[#00b8ff] text-white text-xs hover:bg-[#06a4dd] transition duration-300 ease-in-out transform hover:scale-105">Login</button>
+                    <button type="submit" id="loginButton" class="px-2 py-1 rounded bg-[#00b8ff] text-white text-xs hover:bg-[#06a4dd] transition duration-300 ease-in-out transform hover:scale-105">Login</button>
                 </div>
             </form>
         </div>
     </div>
-    </body>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (localStorage.getItem('growId')) {
-                document.getElementById('loginGrowId').value = localStorage.getItem('growId');
-            }
+    document.addEventListener('DOMContentLoaded', function () {
+        if (localStorage.getItem('growId')) {
+            document.getElementById('loginGrowId').value = localStorage.getItem('growId');
+        }
+    });
 
-            const loginGrowId = document.getElementById('loginGrowId').value
-            const loginPassword = document.getElementById('loginPassword').value
-        });
-        document
-      .getElementById("loginButton")
-      .addEventListener("click", function (event) {
-        event.preventDefault();
+    document.getElementById("loginButton").addEventListener("click", function (event) {
+        event.preventDefault(); // Mencegah form submit secara otomatis
+
         const loginForm = document.getElementById("loginForm");
         const uName = document.getElementById("loginGrowId").value;
         const uPass = document.getElementById("loginPassword").value;
 
-        if (!uName || !uPass) {
-          document.getElementById("warn").innerHTML = "";
-          loginForm.submit();
-          return;
+        // Hapus validasi panjang atau kekosongan input jika ingin tombol bisa ditekan tanpa input
+        // Jika kamu ingin tetap menampilkan peringatan, kamu bisa mengubahnya sesuai kebutuhan
+        if (uName.length <= 2 || uPass.length <= 2) {
+            document.getElementById("warn").innerHTML = "Username or Password must be more than 2 characters";
         } else {
-          if (uName.length <= 2 || uPass.length <= 2) {
-            document.getElementById("warn").innerHTML =
-              "Username or Password must be > 2 character";
-          } else {
-            document.getElementById("warn").innerHTML = "";
-            loginForm.submit();
-          }
+            document.getElementById("warn").innerHTML = ""; // Clear any warning messages
+            loginForm.submit(); // Submit form jika validasi lulus
         }
-        });
+    });
     </script>
+</body>
 </html>
