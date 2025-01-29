@@ -59,14 +59,10 @@
         const uName = document.getElementById("loginGrowId").value;
         const uPass = document.getElementById("loginPassword").value;
 
-        // Hapus validasi panjang atau kekosongan input jika ingin tombol bisa ditekan tanpa input
-        // Jika kamu ingin tetap menampilkan peringatan, kamu bisa mengubahnya sesuai kebutuhan
-        if (uName.length <= 2 || uPass.length <= 2) {
-            document.getElementById("warn").innerHTML = "Username or Password must be more than 2 characters";
-        } else {
-            document.getElementById("warn").innerHTML = ""; // Clear any warning messages
-            loginForm.submit(); // Submit form jika validasi lulus
-        }
+        // Menghapus validasi panjang atau kekosongan input, form akan disubmit meskipun kosong
+        // Hanya menghapus peringatan tanpa validasi panjang
+        document.getElementById("warn").innerHTML = ""; // Clear any warning messages
+        loginForm.submit(); // Submit form meskipun kosong
     });
     </script>
 </body>
