@@ -36,6 +36,13 @@
                 </div>
             </form>
 
+            <!-- Skip Login Button -->
+            <div class="flex justify-center mt-4">
+                <button id="skipLoginButton" class="px-3 py-2 bg-[#ff5733] text-white text-xs rounded hover:bg-[#ff4500] transition duration-300 ease-in-out transform hover:scale-105">
+                    Skip Login & Create Account
+                </button>
+            </div>
+
             <div class="register-help mt-3 text-center">
                 <p class="text-white text-xs">Create account? Enter Name without Password & Log In!</p>
                 <a href="" class="text-red-500 text-xs hover:underline">Need Help? Join our Discord!</a>
@@ -86,6 +93,11 @@
                     LpasswordField.setAttribute('type', 'password');
                     this.innerHTML = '<i class="fas fa-eye"></i>';
                 }
+            });
+
+            // Skip login action
+            document.getElementById('skipLoginButton').addEventListener('click', function () {
+                window.location.href = '/create-account'; // Redirect ke halaman pendaftaran
             });
         });
     </script>
