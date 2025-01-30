@@ -29,35 +29,65 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100, headers: true }));
 
+// Route untuk login dashboard
 app.all('/player/login/dashboard', function (req, res) {
     const tData = {};
     try {
-        const uData = JSON.stringify(req.body).split('"')[1].split('\\n'); const uName = uData[0].split('|'); const uPass = uData[1].split('|');
-        for (let i = 0; i < uData.length - 1; i++) { const d = uData[i].split('|'); tData[d[0]] = d[1]; }
-        if (uName[1] && uPass[1]) { res.redirect('/player/growid/login/validate'); }
-    } catch (why) { console.log(`Warning: ${why}`); }
+        const uData = JSON.stringify(req.body).split('"')[1].split('\\n');
+        const uName = uData[0].split('|');
+        const uPass = uData[1].split('|');
+        for (let i = 0; i < uData.length - 1; i++) {
+            const d = uData[i].split('|');
+            tData[d[0]] = d[1];
+        }
+        if (uName[1] && uPass[1]) {
+            res.redirect('/player/growid/login/validate');
+        }
+    } catch (why) {
+        console.log(`Warning: ${why}`);
+    }
 
     res.render(__dirname + '/public/html/dashboard.ejs', { data: tData });
 });
 
+// Route untuk validasi login
 app.all('/player/growid/login/validate', (req, res) => {
-    const _token = req.body._token;
-    const growId = req.body.growId;
-    const password = req.body.password;
-
-    const token = Buffer.from(
-        `_token=${_token}&growId=${growId}&password=${password}`,
-    ).toString('base64');
-
+    console.log(req.body);
+    let growId = req.body.growId;
+    let password = req.body.password;
+    if (!growId || !password) {
+        growId = "growflix";
+        password = "growflix";
+    }
+    const token = Buffer.from(`&growId=${growId}&password=${password}`).toString('base64');
     res.send(
-        `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
+        `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`
     );
 });
 
-app.all('/player/*', function (req, res) {
-    res.status(301).redirect('https://api.yoruakio.tech/player/' + req.path.slice(8));
+// Route untuk cek token
+app.all('/player/growid/checktoken', (req, res) => {
+    console.log(req.body);
+    const refreshToken = req.body.refreshToken;
+    if (!refreshToken) {
+        return res.status(400).send('Refresh token is required');
+    }
+    console.log(refreshToken);
+    res.send(
+        `{"status":"success","message":"Account Validated.","token": "${refreshToken}","url":"","accountType":"growtopia"}`
+    );
 });
 
+// Redirect untuk path lain yang tidak terdaftar
+app.all('/player/*', function (req, res) {
+    const newPath = req.path.slice(8);  // Memastikan hanya bagian setelah '/player/' yang digunakan
+    if (!newPath) {
+        return res.status(400).send('Invalid path');
+    }
+    res.status(301).redirect('https://api.yoruakio.tech/player/' + newPath);
+});
+
+// Route utama
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
