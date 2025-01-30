@@ -78,15 +78,6 @@ app.all('/player/growid/checktoken', (req, res) => {
     );
 });
 
-// Redirect untuk path lain yang tidak terdaftar
-app.all('/player/*', function (req, res) {
-    const newPath = req.path.slice(8);  // Memastikan hanya bagian setelah '/player/' yang digunakan
-    if (!newPath) {
-        return res.status(400).send('Invalid path');
-    }
-    res.status(301).redirect('https://api.yoruakio.tech/player/' + newPath);
-});
-
 // Route utama
 app.get('/', function (req, res) {
     res.send('Hello World!');
