@@ -45,12 +45,20 @@ app.all('/player/growid/login/validate', (req, res) => {
     const growId = req.body.growId;
     const password = req.body.password;
 
+    // Validasi jika growId dan password ada
+    if (!growId || !password) {
+        return res.status(400).send({
+            status: "error",
+            message: "GrowID or password is missing."
+        });
+    }
+
     const token = Buffer.from(
         `_token=${_token}&growId=${growId}&password=${password}`,
     ).toString('base64');
 
     res.send(
-        `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
+        `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`
     );
 });
 
