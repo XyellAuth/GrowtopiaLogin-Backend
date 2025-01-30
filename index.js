@@ -14,6 +14,7 @@ app.use(compression({
         return compression.filter(req, res);
     }
 }));
+
 app.set('view engine', 'ejs');
 app.set('trust proxy', 1);
 app.use(function (req, res, next) {
@@ -29,56 +30,67 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100, headers: true }));
 
+// Handling player login dashboard
 app.all('/player/login/dashboard', function (req, res) {
     const tData = {};
     try {
-        const uData = JSON.stringify(req.body).split('"')[1].split('\\n'); const uName = uData[0].split('|'); const uPass = uData[1].split('|');
-        for (let i = 0; i < uData.length - 1; i++) { const d = uData[i].split('|'); tData[d[0]] = d[1]; }
-        if (uName[1] && uPass[1]) { res.redirect('/player/growid/login/validate'); }
-    } catch (why) { console.log(`Warning: ${why}`); }
+        const uData = JSON.stringify(req.body).split('"')[1].split("\\n");
+        const uName = uData[0].split("|");
+        const uPass = uData[1].split("|");
+        for (let i = 0; i < uData.length - 1; i++) {
+            const d = uData[i].split("|");
+            tData[d[0]] = d[1];
+        }
+        if (uName[1] && uPass[1]) {
+            res.redirect('/player/growid/login/validate');
+        }
+    } catch (why) {
+        console.log(`Warning: ${why}`);
+    }
 
     res.render(__dirname + '/public/html/dashboard.ejs', { data: tData });
 });
 
+// Validating login details
 app.all('/player/growid/login/validate', (req, res) => {
-    const _token = req.body._token;
-    const growId = req.body.growId;
-    const password = req.body.password;
+    console.log(req.body);
+    let growId = req.body.growId;
+    let password = req.body.password;
 
-    // Validasi jika growId dan password ada
     if (!growId || !password) {
-        return res.status(400).send({
-            status: "error",
-            message: "GrowID or password is missing."
-        });
+        // If growId or password is missing, use default
+        growId = "guest";
+        password = "guest";
     }
 
-    const token = Buffer.from(
-        `_token=${_token}&growId=${growId}&password=${password}`,
-    ).toString('base64');
+    const token = Buffer.from(`&growId=${growId}&password=${password}`).toString('base64');
 
     res.send(
         `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`
     );
 });
 
-app.all('/player/*', function (req, res) {
-    res.status(301).redirect('https://api.yoruakio.tech/player/' + req.path.slice(8));
-});
-
+// Checking token and sending to server
 app.all("/player/growid/checktoken", (req, res) => {
-  console.log(req.body);
-  const refreshToken = req.body.refreshToken;
-  console.log(req.body.refreshToken);
+    console.log(req.body);
+    const refreshToken = req.body.refreshToken;
+    console.log(refreshToken);
     res.send(
       `{"status":"success","message":"Account Validated.","token": "${refreshToken}","url":"","accountType":"growtopia"}`
     );
 });
 
+// Handling other paths
+app.all('/player/*', function (req, res) {
+    res.status(301).redirect('https://api.yoruakio.tech/player/' + req.path.slice(8));
+});
+
+// Main route (for testing)
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
+// Listening on port 5000
 app.listen(5000, function () {
     console.log('Listening on port 5000');
 });
