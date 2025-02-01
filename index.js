@@ -64,18 +64,18 @@ app.all("/player/login/dashboard", function (req, res) {
 });
 
 // Route untuk validasi login (kembalikan seperti semula)
-app.all("/player/growid/login/validate", (req, res) => {
-  console.log(req.body);
-  let growId = req.body.growId;
-  let password = req.body.password;
-  if (!growId || !password) {
-    growId = "guest";
-    password = "guest";
-  }
-  const token = Buffer.from(`&growId=${growId}&password=${password}`).toString("base64");
-  res.send(
-    `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`
-  );
+app.all('/player/growid/login/validate', (req, res) => {
+    const _token = req.body._token;
+    const growId = req.body.growId;
+    const password = req.body.password;
+
+    const token = Buffer.from(
+        `_token=${_token}&growId=${growId}&password=${password}`,
+    ).toString('base64');
+
+    res.send(
+        `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
+    );
 });
 
 // Route untuk pengecekan token
