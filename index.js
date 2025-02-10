@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100, headers: true }));
 
 // Route untuk login dan dashboard
-app.all("/player/login/dashboard", function (req, res) {
+/*app.all("/player/login/dashboard", function (req, res) {
   const tData = {};
   try {
     const uData = JSON.stringify(req.body).split('"')[1].split("\\n");
@@ -61,7 +61,7 @@ app.all("/player/login/dashboard", function (req, res) {
   }
 
   res.render(__dirname + "/public/html/dashboard.ejs", { data: tData });
-});
+});*/
 
 // Route untuk validasi login (kembalikan seperti semula)
 app.all('/player/growid/login/validate', (req, res) => {
