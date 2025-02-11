@@ -1,234 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sugar - Login</title>
-  </head>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial;
-    }
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .wrapper a {
-      text-decoration: none;
-      color: white;
-      text-shadow: 0 0 5px black;
-      font-weight: 550;
-    }
-    .wrapper p {
-      color: white;
-      text-shadow: 0 0 5px black;
-      font-weight: 550;
-    }
-    .wrapper {
-      background-color: rgba(5, 63, 255, 0.2);
-      border: 5px solid #b7e0ff;
-      border-radius: 5px;
-      padding: 25px 40px;
-      transform: scale(0.75);
-      transform-origin: center;
-    }
-    .wrapper .title {
-      text-align: center;
-    }
-    .wrapper .title a {
-      font-size: 30px;
-    }
-    .wrapper .content {
-      margin-top: 30px;
-      width: 100%;
-      padding: 0 20px;
-    }
-    .wrapper .content form {
-      display: flex;
-      flex-direction: column;
-    }
-    .input-box {
-      width: 100%;
-      height: 40px;
-      margin-bottom: 10px;
-    }
-    .input-box input {
-      height: 100%;
-      width: 100%;
-      border: 3px solid #b7e0ff;
-      border-radius: 8px;
-      background-color: #87a2ff;
-      padding: 5px 10px;
-      color: white;
-    }
-    .input-box input::placeholder {
-      color: #b7e0ff;
-      font-weight: 550;
-    }
-    .input-box input:focus {
-      outline: 0;
-      color: white;
-      box-shadow: 0 0 10px #b7e0ff;
-    }
-
-    form .register-help {
-      display: grid;
-      gap: 15px;
-      margin-top: 5px;
-    }
-    form .register-help a {
-      font-size: 14px;
-    }
-    form .register-help p {
-      font-size: 14px;
-    }
-    .help {
-      text-align: center;
-    }
-    .login {
-      margin-top: 12px;
-      padding: 8px 10px;
-      background-color: #87a2ff;
-      border: 2px solid #b7e0ff;
-      color: white;
-      border-radius: 8px;
-      text-shadow: 0 0 2px black;
-      font-weight: 550;
-      cursor: pointer;
-    }
-    .wrapper .login-save {
-      margin-top: 20px;
-      display: grid;
-      gap: 7px;
-      justify-content: center;
-    }
-    .login-save .button-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .login-save .button-box .logas {
-      background-color: #87a2ff;
-      color: white;
-      border: 2px solid #b7e0ff;
-      padding: 10px 30px;
-      width: 100%;
-      font-weight: 550;
-      border-radius: 10px;
-    }
-    .login-save .button-box .delete {
-      background-color: red;
-      border: none;
-      color: white;
-      font-weight: 550;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-    .title p {
-      margin-top: 10px;
-      font-weight: 550;
-      color: red;
-    }
-    .animation-dropdown {
-      transform: translateY(-10px);
-      opacity: 0;
-      transition: all 0.9s ease-in-out;
-    }
-  </style>
-  <body>
-    <div class="wrapper">
-      <div class="title animation-dropdown">
-        <a href="">Log in with your Sugar ID</a>
-        <p id="warn"></p>
-      </div>
-      <div class="content animation-dropdown  ">
-        <form
-          method="post"
-          action="/player/growid/login/validate"
-          accept-charset="UTF-8"
-          id="loginForm"
-        >
-          <div class="input-box">
-            <input
-              type="text"
-              name="growId"
-              id="loginGrowId"
-              placeholder="Your Sugar-PS Name"
-            />
-          </div>
-          <div class="input-box">
-            <input
-              type="text"
-              name="password"
-              id="loginPassword"
-              placeholder="Your Sugar-PS Password"
-            />
-          </div>
-          <div class="register-help">
-            <p style="text-align: center;">Create account? Click Log In!</p>
-          </div>
-          <button id="loginButton" class="login">Log In</button>
-          <a href="https://chat.whatsapp.com/Kh2BXmlVao89c3xPP767DW"
-            ><marquee
-              style="
-                font-size: 13px;
-                margin-top: 20px;
-                color: white;
-                font-weight: 550;
-                text-shadow: 0 0 5px black;
-              "
-              behavior=""
-              direction=""
-              >Join Sugar Whatsapp Group: <label style="color: blue; text-decoration: underline;">https://chat.whatsapp.com/Kh2BXmlVao89c3xPP767DW</label></marquee
-            ></a
-          >
-        </form>
-      </div>
-      <div class="login-save"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growtopia - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="flex flex-col items-center justify-center h-screen bg-[#e0f7fa]">
+    <div class="fixed inset-0 flex items-center justify-center">
+        <div class="relative bg-[#2b4d6d] border-4 border-[#87b8cc] shadow-lg p-6 w-80 rounded-lg">
+            <p class="text-white text-center font-bold text-2xl">Login</p>
+            <div id="errorDiv" class="hidden flex flex-col mt-2 text-xs text-red-700 font-bold px-[5px] bg-[#2b4d6d] rounded">
+                <a id="errorMessage"></a>
+            </div>
+            <form 
+            method="post"
+            action="/player/growid/login/validate"
+            accept-charset="UTF-8"
+            id="loginForm" class="mt-3">
+                <div class="mb-1">
+                    <input name="type" value="log" type="hidden" />
+                    <input name="_token" value="<%= JSON.stringify(data) %>" type="hidden" />
+                    <label for="loginGrowId" class="block text-white text-xs">GrowID</label>
+                    <div class="flex items-center border-2 border-[#81d4fa] rounded bg-[#2b4d6d] px-1 py-1">
+                        <i class="fas fa-user text-white mr-1 text-xs"></i>
+                        <input type="text" name="growId" id="loginGrowId" class="w-full bg-[#2b4d6d] text-white text-xs placeholder-white focus:outline-none" placeholder="Enter your growid">
+                    </div>
+                </div>
+                <div class="mb-1">
+                    <label for="loginPassword" class="block text-white text-xs">Password</label>
+                    <div class="flex items-center border-2 border-[#81d4fa] rounded bg-[#2b4d6d] px-1 py-1">
+                        <i class="fas fa-lock text-white mr-1 text-xs"></i>
+                        <input type="password" name="password" id="loginPassword" class="w-full bg-[#2b4d6d] text-white text-xs placeholder-white focus:outline-none" placeholder="Enter your password">
+                        <button type="button" id="toggleLogPassword" class="text-white ml-2 focus:outline-none text-xs">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-end items-center">
+                    <button id="loginButton" class="px-2 py-1 rounded bg-[#00b8ff] text-white text-xs hover:bg-[#06a4dd] transition duration-300 ease-in-out transform hover:scale-105">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </body>
-  <script>
-    const dropdownElements = document.querySelectorAll(".animation-dropdown");
-    document.addEventListener("DOMContentLoaded", () => {
-      const button = document.querySelector(".btn-aboutme");
-      const homeImageProfile = document.querySelector(".container img");
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (localStorage.getItem('growId')) {
+                document.getElementById('loginGrowId').value = localStorage.getItem('growId');
+            }
 
-      dropdownElements.forEach((element) => {
-        setTimeout(() => {
-          element.style.opacity = 1;
-          element.style.transform = "translateY(0)";
-        }, 500);
-      });
-    });
-    // kepo
-    document
-      .getElementById("loginButton")
-      .addEventListener("click", function (event) {
-        event.preventDefault();
-        const loginForm = document.getElementById("loginForm");
-        const uName = document.getElementById("loginGrowId").value;
-        const uPass = document.getElementById("loginPassword").value;
+            const loginGrowId = document.getElementById('loginGrowId').value
+            const loginPassword = document.getElementById('loginPassword').value
+        });
+        document.getElementById('loginButton').addEventListener('click', function (event) {
+            event.preventDefault();
 
-        if (!uName || !uPass) {
-          document.getElementById("warn").innerHTML = "";
-          loginForm.submit();
-          return;
-        } else {
-          if (uName.length <= 2 || uPass.length <= 2) {
-            document.getElementById("warn").innerHTML =
-              "Username or Password must be > 2 character";
-          } else {
-            document.getElementById("warn").innerHTML = "";
-            loginForm.submit();
-          }
-        }
-      });
-  </script>
+            const loginForm = document.getElementById('loginForm');
+            const uName = document.getElementById('loginGrowId').value;
+            const uPass = document.getElementById('loginPassword').value;
+
+            if (!uName || !uPass) {
+                document.getElementById('errorDiv').classList.remove('hidden');
+                document.getElementById('errorMessage').innerHTML = 'Username or Password is empty';
+                return;
+            } else if (uName.length < 4 || uPass.length < 4) {
+                document.getElementById('errorDiv').classList.remove('hidden');
+                document.getElementById('errorMessage').innerHTML = 'Username or Password must be at least 4 characters long';
+                return;
+            } else {
+                loginForm.submit();
+                localStorage.setItem('growId', document.getElementById('loginGrowId').value);
+            }
+        })
+        document.getElementById('toggleLogPassword').addEventListener('click', function () {
+            const LpasswordField = document.getElementById('loginPassword')
+            const LpasswordFieldType = LpasswordField.getAttribute('type');
+            if (LpasswordFieldType === 'password') {
+                LpasswordField.setAttribute('type', 'text');
+                this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                LpasswordField.setAttribute('type', 'password');
+                this.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        });
+    </script>
+</body>
 </html>
